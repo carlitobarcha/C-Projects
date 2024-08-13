@@ -1,0 +1,75 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    fstream FILE;
+
+    // Open file for writing
+    FILE.open("file.txt", ios::out);
+    if (!FILE) {
+        cerr << "Failed to open file.txt for writing" << endl;
+        return 1;
+    }
+
+    string data;
+
+    // Input data from user and write to file
+    for(int i = 0; i < 3; i++)
+    {
+        cin >> data;
+        FILE << data;
+        FILE << endl;
+    }   
+
+    FILE.close(); // Note the parentheses
+
+    // Open file for reading
+    FILE.open("file.txt", ios::in);
+    if (!FILE) {
+        cerr << "Failed to open file.txt for reading" << endl;
+        return 1;
+    }
+
+    string data2;
+
+    fstream FILE2;
+    // Open second file for writing
+    FILE2.open("file2.txt", ios::out);
+    if (!FILE2) {
+        cerr << "Failed to open file2.txt for writing" << endl;
+        return 1;
+    }
+
+    // Read from first file and write to second file
+    for (int a = 0; a < 3; a++)
+    {
+        getline(FILE, data2);
+        FILE2 << data2;
+        FILE2 << endl;
+    }
+
+    FILE.close(); // Close the first file
+    FILE2.close(); // Close the second file
+
+    // Open second file for reading
+    FILE2.open("file2.txt", ios::in);
+    if (!FILE2) {
+        cerr << "Failed to open file2.txt for reading" << endl;
+        return 1;
+    }
+
+    string data3;
+
+    // Read from second file and output to console
+    for(int i = 0; i < 3; i++)
+    {
+        getline(FILE2, data3);
+        cout << data3 << endl;
+    }
+
+    FILE2.close(); // Close the second file
+
+    return 0;
+}
